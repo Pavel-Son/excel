@@ -14,8 +14,7 @@ ExcelTable.prototype.onMousemove = function (event) {
   if (this.focusedColumnResize) {
     const { column, startX } = this.focusedColumnResize;
 
-    // console.log(column, document.querySelector(`.cell.title[data-column="${column}"]`))
-    let newWidth = 150 + (event.pageX - startX);
+    let newWidth = this.columnMinWidth + (event.pageX - startX);
     document.querySelector(`.cell.title[data-column="${column}"]`).style.width = `${newWidth}px`
   }
 

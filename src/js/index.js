@@ -1,5 +1,7 @@
 class ExcelTable {
-  constructor(selector, { columns, rows }) {
+  constructor(selector, config) {
+    const { columns, rows, columnMinWidth, rowMinHeight } = config
+ 
     this.columns = columns || 10
     this.rows = rows || 10
 
@@ -7,6 +9,10 @@ class ExcelTable {
       columns: [],
       rows: [],
     }
+
+
+    this.columnMinWidth = columnMinWidth || 150
+    this.rowMinHeight = rowMinHeight || 50
 
     this.focusedColumnResize = null
     this.focusedRowResize = null
