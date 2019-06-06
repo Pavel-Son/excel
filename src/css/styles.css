@@ -38,7 +38,12 @@ html, body {
   padding: 10px;
 
   border: none;
-  outline: none;
+
+  font-size: 1.2rem;
+}
+
+.spreadsheet .cell input:focus {
+  outline: 2px solid teal
 }
 
 #addRow, #addColumn {
