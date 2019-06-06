@@ -62,7 +62,12 @@ ExcelTable.prototype._drawRow = function (rowIndex) {
     <td
       class="cell title"
       data-row="${rowName}"
-      >${rowName}
+    >
+      ${rowName}
+      <span
+        class="resize-bar row"
+        data-row="${rowName}"
+      ></span>
     </td>`
 
   newRow.innerHTML = rowTitleHTML

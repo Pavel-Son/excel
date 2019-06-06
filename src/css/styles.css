@@ -43,18 +43,26 @@ html, body {
 }
 
 .spreadsheet .cell.title .resize-bar.column {
-  top: 0;
-  bottom: 0;
+  top: -1px;
+  bottom: -1px;
   right: 0;
   width: 5px;
 
   cursor: col-resize;
 }
 
+.spreadsheet .cell.title .resize-bar.row {
+  bottom: 0;
+  left: -1px;
+  right: -1px;
+  height: 5px;
+
+  cursor: row-resize;
+}
 
 .spreadsheet .cell input {
   padding: 10px;
-  width: 150px;
+  width: 100%;
 
   border: none;
 

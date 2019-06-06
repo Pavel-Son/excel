@@ -8,18 +8,19 @@ ExcelTable.prototype.onMousedown = function (event) {
   if (target.classList.contains('column')) {
     this.onResizeColumnClick(event)
   }
+
+  if (target.classList.contains('row')) {
+    this.onResizeRowClick(event)
+  }
 }
 
 ExcelTable.prototype.onMousemove = function (event) {
   if (this.focusedColumnResize) {
-    const { column, startX } = this.focusedColumnResize;
-
-    let newWidth = this.columnMinWidth + (event.pageX - startX);
-    document.querySelector(`.cell.title[data-column="${column}"]`).style.width = `${newWidth}px`
+    this.onResizeColumn(event);
   }
 
   if (this.focusedRowResize) {
-
+    this.onResizeRow(event);
   }
 }
 
@@ -33,9 +34,58 @@ ExcelTable.prototype.onResizeColumnClick = function(event) {
   if (!target.classList.contains('resize-bar', 'column')) {
     return
   }
+  
+  const { column } = target.dataset;
+  const startWidth = document.querySelector(`.cell.title[data-column="${column}"]`).clientWidth;
 
   this.focusedColumnResize = {
-    column: target.dataset.column,
-    startX: pageX
+    column,
+    startX: pageX,
+    startWidth,
   }
+}
+
+
+ExcelTable.prototype.onResizeColumn = function (event) {
+  const { column, startX, startWidth } = this.focusedColumnResize;
+  const columnCell = document.querySelector(`.cell.title[data-column="${column}"]`)
+  
+  let newWidth = startWidth + (event.pageX - startX);
+
+  if ( newWidth < this.columnMinWidth ) {
+    return
+  }
+  columnCell.style.width = `${newWidth}px`
+}
+
+
+
+ExcelTable.prototype.onResizeRowClick = function(event) {
+  const { target, pageY } = event
+
+  if (!target.classList.contains('resize-bar', 'row')) {
+    return
+  }
+
+  const { row } = target.dataset;
+  const startHeight = document.querySelector(`.cell.title[data-row="${row}"]`).clientHeight;
+
+  this.focusedRowResize = {
+    row,
+    startY: pageY,
+    startHeight,
+  }
+}
+
+
+ExcelTable.prototype.onResizeRow = function (event) {
+  const { row, startY, startHeight } = this.focusedRowResize;
+  const rowCell = document.querySelector(`.cell.title[data-row="${row}"]`)
+  
+  let newHeight = startHeight + (event.pageY - startY);
+
+  if ( newHeight < this.rowMinHeight ) {
+    return
+  }
+  rowCell.style.height = `${newHeight}px`
 }
