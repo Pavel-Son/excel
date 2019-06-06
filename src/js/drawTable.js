@@ -9,7 +9,11 @@ ExcelTable.prototype.drawTable = function () {
   }
 }
 
-ExcelTable.prototype.onAddColumnClick = function () {
+ExcelTable.prototype.onAddColumnClick = function (event) {
+  if (!event.target.classList.contains('addColumn')) {
+    return;
+  }
+
   const currentX = this.tableMap.columns.length
   const rows = this.table.getElementsByTagName('tr')
 
@@ -25,6 +29,10 @@ ExcelTable.prototype.onAddColumnClick = function () {
 }
 
 ExcelTable.prototype.onAddRowClick = function () {
+  if (!event.target.classList.contains('addRow')) {
+    return;
+  }
+
   const currentColumnIndex = this.tableMap.rows.length
 
   this.tableMap.rows = this._getRowsArray(currentColumnIndex + 1)
@@ -60,12 +68,19 @@ ExcelTable.prototype._drawRow = function (rowIndex) {
   }
 }
 
-ExcelTable.prototype._drawTitleCell = function (column, row) {
+ExcelTable.prototype._drawTitleCell = function (columnIndex, row) {
   const titleRow = row || this.table.getElementsByTagName('tr')[0]
   const titleCell = document.createElement('td')
+  const columnName = this.tableMap.columns[columnIndex];
 
   titleCell.classList.add('cell', 'title')
-  titleCell.innerHTML = this.tableMap.columns[column]
+  titleCell.innerHTML = `
+    ${columnName}
+    <span
+      class="resize-bar column"
+      data-column="${columnName}"
+    ></span>
+  `
 
   titleRow.appendChild(titleCell)
 }

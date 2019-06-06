@@ -16,8 +16,8 @@ class ExcelTable {
     tableWrapper.classList.add('spreadsheet-wrapper');
     
     tableWrapper.innerHTML = `<table class="spreadsheet"></table>\n
-      <button id="addRow">+</button>\n
-      <button id="addColumn">+</button>`
+      <button class="addRow">+</button>\n
+      <button class="addColumn">+</button>`
    
     this.excelFunctions = {
       sum: this.sum,
@@ -34,8 +34,8 @@ class ExcelTable {
     this.table.addEventListener('focusout', this.onInputFocusOut.bind(this))
     this.table.addEventListener('focusin', this.onInputFocusIn.bind(this))
   
-    document.getElementById('addColumn').addEventListener('click', this.onAddColumnClick)
-    document.getElementById('addRow').addEventListener('click', this.onAddRowClick)
+    tableWrapper.addEventListener('click', this.onAddColumnClick.bind(this));
+    tableWrapper.addEventListener('click', this.onAddRowClick.bind(this));
   }
   
   onInputKeydown (event) {
