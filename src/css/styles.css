@@ -27,12 +27,30 @@ html, body {
 }
 
 .spreadsheet .cell.title {
+  position: relative;
+
   padding: 10px;
   background: #ddd;
  
   font-weight: bold;
   text-align: center;
 }
+
+.spreadsheet .cell.title .resize-bar {
+  position: absolute;
+
+  background: teal;
+}
+
+.spreadsheet .cell.title .resize-bar.column {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 5px;
+
+  cursor: col-resize;
+}
+
 
 .spreadsheet .cell input {
   padding: 10px;
@@ -47,7 +65,7 @@ html, body {
   outline: 2px solid teal
 }
 
-#addRow, #addColumn {
+.addRow, .addColumn {
   position: absolute;
   padding: 10px;
   width: 40px;
@@ -60,12 +78,12 @@ html, body {
   border-radius: 3px;
 }
 
-#addColumn {
+.addColumn {
   right: -45px;
   top: 0;
 }
 
-#addRow {
+.addRow {
   bottom: -45px;
   left: 0;
 }

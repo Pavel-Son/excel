@@ -58,7 +58,12 @@ ExcelTable.prototype._drawTitleRow = function () {
 ExcelTable.prototype._drawRow = function (rowIndex) {
   const rowName = this.tableMap.rows[rowIndex]
   const newRow = document.createElement('tr')
-  const rowTitleHTML = `<td class="cell title">${rowName}</td>`
+  const rowTitleHTML = `
+    <td
+      class="cell title"
+      data-row="${rowName}"
+      >${rowName}
+    </td>`
 
   newRow.innerHTML = rowTitleHTML
   this.table.appendChild(newRow)
@@ -74,6 +79,7 @@ ExcelTable.prototype._drawTitleCell = function (columnIndex, row) {
   const columnName = this.tableMap.columns[columnIndex];
 
   titleCell.classList.add('cell', 'title')
+  titleCell.dataset.column = columnName
   titleCell.innerHTML = `
     ${columnName}
     <span

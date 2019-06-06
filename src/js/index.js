@@ -8,12 +8,15 @@ class ExcelTable {
       rows: [],
     }
 
+    this.focusedColumnResize = null
+    this.focusedRowResize = null
+
     this.initTable(selector)
   }
 
   initTable (selector) {
-    const tableWrapper = document.querySelector(selector);
-    tableWrapper.classList.add('spreadsheet-wrapper');
+    const tableWrapper = document.querySelector(selector)
+    tableWrapper.classList.add('spreadsheet-wrapper')
     
     tableWrapper.innerHTML = `<table class="spreadsheet"></table>\n
       <button class="addRow">+</button>\n
@@ -33,9 +36,13 @@ class ExcelTable {
     this.table.addEventListener('keydown', this.onInputKeydown.bind(this))
     this.table.addEventListener('focusout', this.onInputFocusOut.bind(this))
     this.table.addEventListener('focusin', this.onInputFocusIn.bind(this))
+
+    this.table.addEventListener('mousedown', this.onMousedown.bind(this))
+    this.table.addEventListener('mousemove', this.onMousemove.bind(this))
+    document.addEventListener('mouseup', this.onMouseup.bind(this))
   
-    tableWrapper.addEventListener('click', this.onAddColumnClick.bind(this));
-    tableWrapper.addEventListener('click', this.onAddRowClick.bind(this));
+    tableWrapper.addEventListener('click', this.onAddColumnClick.bind(this))
+    tableWrapper.addEventListener('click', this.onAddRowClick.bind(this))
   }
   
   onInputKeydown (event) {
