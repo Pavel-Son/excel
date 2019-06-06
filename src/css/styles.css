@@ -36,6 +36,7 @@ html, body {
 
 .spreadsheet .cell input {
   padding: 10px;
+  width: 150px;
 
   border: none;
 
