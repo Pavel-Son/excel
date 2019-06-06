@@ -38,7 +38,9 @@ class ExcelTable {
     this.table = tableWrapper.getElementsByTagName('table')[0]
 
     this.drawTable(this.columns, this.rows)
-  
+
+    this.tableStartWidth = this.table.clientWidth;
+
     this.table.addEventListener('keydown', this.onInputKeydown.bind(this))
     this.table.addEventListener('focusout', this.onInputFocusOut.bind(this))
     this.table.addEventListener('focusin', this.onInputFocusIn.bind(this))

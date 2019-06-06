@@ -25,10 +25,12 @@ ExcelTable.prototype.onMousemove = function (event) {
 }
 
 ExcelTable.prototype.onMouseup = function () {
+  this.tableStartWidth = this.table.clientWidth
   this.focusedColumnResize = null
   this.focusedRowResize = null
 }
 
+// Column
 ExcelTable.prototype.onResizeColumnClick = function(event) {
   const { target, pageX } = event
   if (!target.classList.contains('resize-bar', 'column')) {
@@ -45,21 +47,22 @@ ExcelTable.prototype.onResizeColumnClick = function(event) {
   }
 }
 
-
 ExcelTable.prototype.onResizeColumn = function (event) {
   const { column, startX, startWidth } = this.focusedColumnResize;
   const columnCell = document.querySelector(`.cell.title[data-column="${column}"]`)
-  
-  let newWidth = startWidth + (event.pageX - startX);
+  const mouseOffset = event.pageX - startX
+  let newWidth = startWidth + mouseOffset;
 
   if ( newWidth < this.columnMinWidth ) {
     return
   }
+
+  this.table.style.width = `${this.tableStartWidth + mouseOffset}px`
   columnCell.style.width = `${newWidth}px`
 }
 
 
-
+// Row
 ExcelTable.prototype.onResizeRowClick = function(event) {
   const { target, pageY } = event
 
